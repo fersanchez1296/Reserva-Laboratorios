@@ -13,7 +13,7 @@ import DialogTitle from '@mui/material/DialogTitle';
  * desde el componente invocador "AdminTeacher".
  * @returns 
  */
-export const Table = ({data}) => {
+export const Table = ({headers,data}) => {
   /**
    * Hook personalizado relacionado con la adminitración de usuarios.
    * "deleteDataRequest" es la función declara en el componente "Context"
@@ -56,23 +56,24 @@ export const Table = ({data}) => {
             <thead>
               {/*Titulo de cada columna de la tabla*/}
               <tr>
-                <th>Código</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>E-mail</th>
-                <th>Actions</th>
+                {headers.map(header => {
+                  return(
+                    <th key={header}>{header.toUpperCase()}</th>
+                  )
+                })}
               </tr>
             </thead>
             <tbody>
               {/*Renderizado de la tabla segun sea cada elemento contenido en la varible
               "data"*/}
-              {data.map(data => {
+              {data.map(row => {
                 return(
-                  <tr key={data.codigo}>
-                  <td>{data.codigo}</td>
-                  <td>{data.nombre}</td>
-                  <td>{data.telefono}</td>
-                  <td>{data.email}</td>
+                  <tr key={row.codigo}>
+                    {Object.values(row).map((value,index) => {
+                      return (
+                      <td key={index}>{value}</td>
+                      )
+                    })}
                   <td>
                     {/*Botones para editar y eliminar */}
                     <div className="buttons">
@@ -84,7 +85,7 @@ export const Table = ({data}) => {
                         *relacionada con este usuario. 
                         */}
                         <button className="btn-edit"
-                        onClick={() => navigate(`/Edit/${data.codigo}`)}><span className="material-icons">edit</span>Editar</button>
+                        onClick={() => navigate(`/Edit/${row.codigo}`)}><span className="material-icons">edit</span>Editar</button>
                         {/*
                         *El botón eliminar mediante su metodo "onClick" manda a llamar el dialogo
                         *de confirmación y asigna el codigo del usuario que se quiere eliminar
@@ -100,7 +101,7 @@ export const Table = ({data}) => {
                         {/*Asignación del codigo del usuario que se quiere eliminar
                         *en la variable codigo*
                         */}
-                        setCodigo(data.codigo)}}
+                        setCodigo(row.codigo)}}
                         ><span className="material-icons">delete</span>Eliminar</button>
                     </div>
                   </td>

@@ -9,7 +9,7 @@ export const AdminTeacher = () => {
   * "data" es la información que viene desde el contexto.
   *"loadDataRequest" es la función encargada de realizar la petición al backend y traer la información
   */
-  const {data,loadDataRequest} = useContextReservations()
+  const {headers,data,loadDataRequest} = useContextReservations()
   /**
   *El "useEffect()" se encarga de ejecutar la función "loadDataRequest" bien se monta
   *el componente. 
@@ -17,8 +17,6 @@ export const AdminTeacher = () => {
   useEffect (() => {
     loadDataRequest();
   },[])
-
-
   /**
   * La función "renderTable" es la que condiciona si la tabla se renderiza, la tabla se
   *despliega siempre y cuando la petición al backend retorne información,caso contrario
@@ -26,7 +24,7 @@ export const AdminTeacher = () => {
   * @returns 
   */
   function renderTable(){
-    if (data.length === 0){return <h1>No hay información aún</h1>} else{return <Table data={data}/>}
+    if (data.length === 0){return <h1>No hay información aún</h1>} else{return <Table data={data} headers={headers}/>}
   }
   return (
     <div>

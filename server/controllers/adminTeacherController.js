@@ -7,7 +7,7 @@ export const createTeacher = async (req,res) =>{
         const [result] = await pool.query(`INSERT INTO 
         usuario 
         (codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono)
-        VALUES{/*Componente login*/}
+        VALUES
         (?,?,?,?,?,?,?)`,
         [codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono]);
         res.send(result.data);
@@ -21,7 +21,7 @@ export const getTeachers = async(req,res) =>{
     try {
         const [result] = await pool.query(`
         SELECT 
-        codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono, CONCAT_WS(' ',nombre,apellido_1,apellido_2) nombre
+        codigo,CONCAT_WS(' ',nombre,apellido_1,apellido_2) nombre,telefono,email
          FROM usuario`);
          res.send(result)
     } catch (error) {
@@ -63,7 +63,7 @@ export const deleteTeacher = async(req,res) =>{
         usuario
         WHERE
         codigo = ?`,[req.params.codigo]);
-        res.send(result.status)
+        res.send(result.data)
     }
     catch(error){
         res.send([error.code,error.errno])

@@ -41,8 +41,12 @@ export const getTeachers = async() =>{
  * en el objeto data.
  */
 export const deleteTeacher = async(codigo) => {
-    const response = await axios.delete(`http://localhost:4000/adminTeacher/${codigo}`); 
-    return(response.data);
+    const response = await axios.delete(`http://localhost:4000/adminTeacher/${codigo}`);
+    if(response.data !== ""){
+        return ([response.data[0],response.data[1]]);
+    }else{
+        return (["Usuario eliminado con exito",200]);
+    }
 }
 /**
  * "response" => Almacena la respuesta devuelta por el backend por medio de una 
@@ -58,7 +62,6 @@ export const deleteTeacher = async(codigo) => {
  */
 export const addTeacher = async(data) =>{
     const response = await axios.post(`http://localhost:4000/adminTeacher`,data);
-    console.log(response)
     if(response.data !== ""){
         return [response.data.message,response.data.errno]
     }else{
@@ -81,5 +84,10 @@ export const addTeacher = async(data) =>{
  */
 export const updateTeacher = async(codigo,newData) =>{
     const response = await axios.put(`http://localhost:4000/adminTeacher/${codigo}`,newData);
-    return(response.status);
+    console.log(response);
+    if(response.data !== ""){
+        return ([response.data[0],response.data[1]]);
+    }else{
+        return (["Usuario modificado con exito",200]);
+    }
 }

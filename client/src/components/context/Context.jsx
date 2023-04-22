@@ -25,6 +25,14 @@ export const ContextReservationsProvider = ({children}) => {
     */
     const [data,setData] = useState([]);
     /**
+    * La variable data almacena un array de objetos, los cuales son proporcionados
+    *mediante una petición al backend, la variable esta inicializada en un arreglo vacio.
+    *Con el método "setData",asignamos la informacion cuando el backend propociona 
+    *el resultado la petición solicitada en la función "loadaDataRequest()". "data" es 
+    *enviado a la tabla que carga esta información, a traves de "contextReservationsProvider".
+    */
+    const [headers,setHeaders] = useState([]);
+    /**
      * Se realiza la petición al backend 
      * a traves de la funcion "getTeachers" en
      * el API (getData.js). La petición se realiza mediante una función asincrona, el 
@@ -36,6 +44,7 @@ export const ContextReservationsProvider = ({children}) => {
         try {
             const response = await getTeachers();
             setData(response);
+            setHeaders(Object.keys(response[0]))
         } 
         catch (error) {
             alert(error);
@@ -59,11 +68,11 @@ export const ContextReservationsProvider = ({children}) => {
     const deleteDataRequest = async(codigo) => {
         try {
             const response = await deleteTeacher(codigo);
-            if(response[1] !== 1451){
-                M.toast({html: '¡Usuario eliminado con éxito!', classes: 'rounded green'});
-                setData(data.filter(datas => datas.codigo !== codigo))
+            if(response[1] !== 200){
+                M.toast({html: response[0], classes: 'rounded red'});
             }else{
-                M.toast({html: response[0], classes: 'rounded red'})
+                M.toast({html: response[0], classes: 'rounded green'})
+                setData(data.filter(datas => datas.codigo !== codigo));
             }
         } catch (error) {
             console.log(error)
@@ -131,12 +140,12 @@ export const ContextReservationsProvider = ({children}) => {
     const updateSingleDataRequest = async (codigo,newData) => {
         try {
             const response = await updateTeacher(codigo,newData);
-            if(response === 200){
-                M.toast({html: '¡Usuario modificado con éxito!', classes: 'rounded green'});
+            if(response[1] !== 200){
+                M.toast({html: response[0], classes: 'rounded red'});
             }else{
-                M.toast({html: "Error", classes: 'rounded red'})
+                M.toast({html: response[0], classes: 'rounded green'})
+                setData(data.filter(datas => datas.codigo !== codigo));
             }
-
         } catch (error) {   
             console.log(error);
         }
@@ -145,7 +154,7 @@ export const ContextReservationsProvider = ({children}) => {
         
 
     return (
-    <contextReservations.Provider value={{data,loadDataRequest,deleteDataRequest,createDataRequest,loadSingleDataRequest,updateSingleDataRequest}}>
+    <contextReservations.Provider value={{headers,data,loadDataRequest,deleteDataRequest,createDataRequest,loadSingleDataRequest,updateSingleDataRequest}}>
         {children}
     </contextReservations.Provider>
     )
