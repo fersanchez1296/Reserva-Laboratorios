@@ -9,9 +9,7 @@ app.use(express.json())
 permitimos la comunicación entre el backend y frontend pero unicamente
 las peticiones desde el puerto 5173
 */}
-app.use(cors({
-    origin: 'http://localhost:5173'
-}));
+app.use(cors());
 {/*Rutas del backend*/}
 app.use(indexRoutes);
 {/*Rutas en las que el frontend realiza peticiones para la información

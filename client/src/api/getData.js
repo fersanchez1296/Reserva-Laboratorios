@@ -8,7 +8,7 @@ import axios from 'axios';
  * en el objeto data.
  */
 export const getTeachers = async() =>{
-    const response = await axios.get("http://localhost:4000/adminTeacher");
+    const response = await axios.get("https://reserva-laboratorios-production.up.railway.app");
     return(response.data);
 }
 /**
@@ -24,7 +24,7 @@ export const getTeachers = async() =>{
  * en el objeto data.
  */
  export const getTeacher = async(codigo) =>{
-    const response = await axios.get(`http://localhost:4000/adminTeacher/${codigo}`);
+    const response = await axios.get(`https://reserva-laboratorios-production.up.railway.app/${codigo}`);
     return(response.data);
 }
 /**
@@ -41,7 +41,7 @@ export const getTeachers = async() =>{
  * en el objeto data.
  */
 export const deleteTeacher = async(codigo) => {
-    const response = await axios.delete(`http://localhost:4000/adminTeacher/${codigo}`);
+    const response = await axios.delete(`https://reserva-laboratorios-production.up.railway.app/${codigo}`);
     if(response.data !== ""){
         return ([response.data[0],response.data[1]]);
     }else{
@@ -61,7 +61,7 @@ export const deleteTeacher = async(codigo) => {
  * en el objeto data.
  */
 export const addTeacher = async(data) =>{
-    const response = await axios.post(`http://localhost:4000/adminTeacher`,data);
+    const response = await axios.post(`https://reserva-laboratorios-production.up.railway.app/`,data);
     if(response.data !== ""){
         return [response.data.message,response.data.errno]
     }else{
@@ -83,7 +83,7 @@ export const addTeacher = async(data) =>{
  * @returns 
  */
 export const updateTeacher = async(codigo,newData) =>{
-    const response = await axios.put(`http://localhost:4000/adminTeacher/${codigo}`,newData);
+    const response = await axios.put(`https://reserva-laboratorios-production.up.railway.app/${codigo}`,newData);
     console.log(response);
     if(response.data !== ""){
         return ([response.data[0],response.data[1]]);
