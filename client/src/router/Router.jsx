@@ -12,16 +12,16 @@ export const Router = () => {
       <BrowserRouter>
         <Routes>
           {/*Componente login*/}
-          <Route path='https://reserva-laboratorios-production.up.railway.app/Login' element={<Login />}/>
+          <Route path='/Login' element={<Login />}/>
           {/*Componente Main*/}
-          <Route path='https://reserva-laboratorios-production.up.railway.app/Main/*' element={<Main/>}>
+          <Route path='/Main/*' element={<Main/>}>
             {/*Componente AdminTeacher*/}
             <Route path='AdminTeacher/' element={<AdminTeacher/>} />
           </Route>
           {/*Componente Crear Usuario*/}
-          <Route path='https://reserva-laboratorios-production.up.railway.app/Create' element={<Create/>} /> 
+          <Route path='/Create' element={<Create/>} /> 
           {/*Componente Editar usuario*/}
-          <Route path='https://reserva-laboratorios-production.up.railway.app/Edit/:codigo' element={<Create/>} />   
+          <Route path='/Edit/:codigo' element={<Create/>} />   
         </Routes>
       </BrowserRouter>
     </ContextReservationsProvider>
