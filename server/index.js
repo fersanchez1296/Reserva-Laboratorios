@@ -6,6 +6,7 @@ import adminTeacherRoutes from './routes/adminTeacherRoutes.js'
 import adminSubjectsRoutes from './routes/adminSubjectsRoutes.js'
 import adminUsersRoutes from './routes/adminUsersRoutes.js'
 import adminToolsRoutes from './routes/adminToolsRoutes.js'
+import adminLabsRoutes from './routes/adminLabsRoutes.js'
 const app  = express();
 app.use(express.json())
 {/**
@@ -16,7 +17,7 @@ app.use(cors());
 app.use(indexRoutes);
 {/*Rutas en las que el frontend realiza peticiones para la información
 relazionada con la administración de usuarios.*/}
-app.use(adminTeacherRoutes,adminSubjectsRoutes,adminUsersRoutes,adminToolsRoutes);
+app.use(adminTeacherRoutes,adminSubjectsRoutes,adminUsersRoutes,adminToolsRoutes,adminLabsRoutes);
 /*El servidor se ejecuta en el puerto PORT(3000) */
 app.listen(PORT); 
 console.log("Server is running");
