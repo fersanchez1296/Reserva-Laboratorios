@@ -8,7 +8,7 @@ export const getSubjects = async(req,res) =>{
         SELECT crn,materia.nombre,grupo.nombre as semestre,carrera.clave as carrera
         FROM materia
         INNER JOIN grupo 
-        ON materia.grupo_idgrupo = grupo.idgrupo
+        ON materia.grupo_id_grupo = grupo.id_grupo
         INNER JOIN carrera 
         ON grupo.carrera_clave = carrera.clave;`);
         res.send(result)
