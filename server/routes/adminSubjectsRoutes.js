@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getSubjects} from '../controllers/adminSubjectsController';
+import {getSubjects} from '../controllers/adminSubjectsController.js';
 
 const router = Router();
 /*Traemos toda la información referente a los maestros*/

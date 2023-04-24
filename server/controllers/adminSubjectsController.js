@@ -11,7 +11,7 @@ export const getSubjects = async(req,res) =>{
         ON materia.grupo_idgrupo = grupo.idgrupo
         INNER JOIN carrera 
         ON grupo.carrera_clave = carrera.clave;`);
-         res.send(result)
+        res.send(result)
     } catch (error) {
         res.send([error.code,error.errno])
     }
