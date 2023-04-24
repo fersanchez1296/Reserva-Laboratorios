@@ -3,6 +3,7 @@ import {PORT} from './config.js';
 import cors from 'cors';
 import indexRoutes from './routes/index-routes.js'
 import adminTeacherRoutes from './routes/adminTeacherRoutes.js'
+import adminSubjectsRoutes from './routes/adminSubjectsRoutes.js'
 const app  = express();
 app.use(express.json())
 {/**
@@ -14,7 +15,7 @@ app.use(cors());
 app.use(indexRoutes);
 {/*Rutas en las que el frontend realiza peticiones para la información
 relazionada con la administración de usuarios.*/}
-app.use(adminTeacherRoutes);
+app.use(adminTeacherRoutes,adminSubjectsRoutes);
 /*El servidor se ejecuta en el puerto PORT(3000) */
 app.listen(PORT); 
 console.log("Server is running");
