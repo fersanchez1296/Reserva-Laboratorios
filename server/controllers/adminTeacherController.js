@@ -1,21 +1,21 @@
 import { pool } from "../db.js";
 
-/*Creamos un maestro en la db*/
-export const createTeacher = async (req,res) =>{
-    try {
-        const {codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono} = req.body;
-        const [result] = await pool.query(`INSERT INTO 
-        usuario 
-        (codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono)
-        VALUES
-        (?,?,?,?,?,?,?)`,
-        [codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono]);
-        res.send(result.data);
-    } catch (error) {
-        res.send(error)
+    /*Creamos un maestro en la db*/
+    export const createTeacher = async (req,res) =>{
+        try {
+            const {codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono} = req.body;
+            const [result] = await pool.query(`INSERT INTO 
+            usuario 
+            (codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono)
+            VALUES
+            (?,?,?,?,?,?,?)`,
+            [codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono]);
+            res.send(result.data);
+        } catch (error) {
+            res.send(error)
+        }
+        
     }
-    
-}
 /*Obtenemos todos los maestros de la db*/
 export const getTeachers = async(req,res) =>{
     try {

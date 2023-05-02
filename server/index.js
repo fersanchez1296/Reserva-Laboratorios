@@ -19,7 +19,7 @@ app.use(indexRoutes);
 {/*Rutas en las que el frontend realiza peticiones para la información
 relazionada con la administración de usuarios.*/}
 app.use(adminTeacherRoutes,adminSubjectsRoutes,adminUsersRoutes,
-    adminToolsRoutes,adminLabsRoutes,adminPracticesRoutes);
+        adminToolsRoutes,adminLabsRoutes,adminPracticesRoutes);
 /*El servidor se ejecuta en el puerto PORT(3000) */
 app.listen(PORT); 
 console.log("Server is running");
