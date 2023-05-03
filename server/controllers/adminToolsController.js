@@ -30,3 +30,18 @@ export const createTool = async (req,res) =>{
     }
     
 }
+
+/*Obtenemos la información de un equipo de la db*/
+export const getTool = async(req,res) =>{
+    try {
+        const [result] = await pool.query(`SELECT * FROM
+        equipo 
+        WHERE 
+        id = (?)`,[req.params.id]);
+        res.send(result)
+    } catch (error) {
+        res.send([error.code,error.errno])
+    }
+    
+
+}
