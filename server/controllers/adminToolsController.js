@@ -45,3 +45,33 @@ export const getTool = async(req,res) =>{
     
 
 }
+
+/*Actualizamos la información de un maestro de la db*/
+export const updateTool = async(req,res) =>{
+    try {
+        const [result] = await pool.query(`UPDATE equipo 
+        SET ?
+        WHERE
+        id = ?`,[req.body,req.params.codigo]);
+        res.send(result.status)
+    } catch (error) {
+        res.send([error.code,error.errno])
+    }
+    
+}
+
+/*Eliminamos un maestro de la db*/
+export const deleteTool = async(req,res) =>{
+    try{
+        const [result] = await pool.query(`DELETE FROM
+        equipo
+        WHERE
+        id = ?`,[req.params.codigo]);
+        res.send(result.data)
+    }
+    catch(error){
+        res.send([error.code,error.errno])
+    }
+    
+
+}
