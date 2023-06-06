@@ -17,15 +17,16 @@ export const getSubjects = async (req, res) => {
 };
 
 export const getCarrera = async (req, res) => {
-    try {
-      const [result] = await pool.query(`
-        SELECT carrera.nombre as carrera, grupo.nombre as grupo
+  try {
+    const [result] = await pool.query(
+      `SELECT carrera.nombre as carrera, grupo.nombre as grupo
         FROM carrera
-        INNE JOIN grupo ON carrera.clave = grupo.carrera_clave
-        WHERE grupo.carrera_clave = (?)
-        `[req.params.carrera]);
-        res.send(result);
-    } catch (error) {
-      res.send([error.code, error.errno]);
-    }
-  };
+        INNER JOIN grupo ON carrera.clave = grupo.carrera_clave
+        WHERE grupo.carrera_clave = (?)`,
+      [req.params.carrera]
+    );
+    res.send(result);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
+};

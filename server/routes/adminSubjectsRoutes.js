@@ -5,6 +5,6 @@ const router = Router();
 /*Traemos toda la información referente a los maestros*/
 router.get('/adminSubjects',getSubjects);
 
-router.get('/adminSubjects',getCarrera);
+router.get('/adminSubjects/:carrera',getCarrera);
 
 export default router;
