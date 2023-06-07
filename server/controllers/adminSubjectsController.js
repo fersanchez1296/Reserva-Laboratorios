@@ -10,10 +10,8 @@ export const getSubjects = async (req, res) => {
         ON materia.grupo_id_grupo = grupo.id_grupo
         INNER JOIN carrera 
         ON grupo.carrera_clave = carrera.clave;`);
-    res.send("obteniendo materias")
     res.send(result);
   } catch (error) {
-    res.send("NO obtuvieron materias")
     res.send([error.code, error.errno]);
   }
 };
@@ -63,17 +61,12 @@ export const getMateria = async (req, res) => {
     const [result] = await pool.query(
       `SELECT crn,clave,nombre
         FROM materia
-        WHERE crn = (?)
-        `,[req.params.crn],
-    );
-    res.send("obteniendo una materia")
+        WHERE crn = (?)`,[req.params.crn]);
     res.send(result);
-    
   } catch (error) {
-    res.send("no se obtuvo la materia")
     res.send([error.code, error.errno]);
   }
-};
+}
 
 
 export const deleteSubject = async(req,res) =>{
