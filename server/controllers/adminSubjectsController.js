@@ -59,12 +59,29 @@ export const createSubject = async (req, res) => {
 export const getMateria = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `SELECT *
-        FROM grupo
-        `,
+      `SELECT crn,clave,nombre
+        FROM materia
+        WHERE crn = (?)
+        `,[req.params.crn],
     );
     res.send(result);
   } catch (error) {
     res.send([error.code, error.errno]);
   }
 };
+
+
+export const deleteSubject = async(req,res) =>{
+  try{
+      const [result] = await pool.query(`DELETE FROM
+      materia
+      WHERE
+      crn = ?`,[req.params.crn]);
+      res.send(result.data)
+  }
+  catch(error){
+      res.send([error.code,error.errno])
+  }
+  
+
+}
