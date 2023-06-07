@@ -11,6 +11,6 @@ router.get('/adminSubjects-carreras/',getCarreras);
 
 router.post('/adminSubjects/',createSubject);
 
-router.get('/adminSubjects/:crn',getSubject);
+router.get('/adminSubjects/:crn/',getSubject);
 
 export default router;

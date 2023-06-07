@@ -59,7 +59,7 @@ export const createSubject = async (req, res) => {
 export const getSubject = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `select crn, clave, nombre from materia where crn = (?,)`,
+      `select crn, clave, nombre from materia where materia.crn = (?)`,
       [req.params.crn]
     );
     res.send(result);
