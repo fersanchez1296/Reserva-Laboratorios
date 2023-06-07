@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {getSubjects,getCarrera,getCarreras,createSubject,getSubject} from '../controllers/adminSubjectsController.js';
+import {getSubjects,getCarrera,getCarreras,createSubject,getMateria} from '../controllers/adminSubjectsController.js';
 
 const router = Router();
 /*Traemos toda la información referente a los maestros*/
@@ -11,6 +11,6 @@ router.get('/adminSubjects-carreras/',getCarreras);
 
 router.post('/adminSubjects/',createSubject);
 
-router.get('/adminSubjects/:crn/',getSubject);
+router.get('/adminSubjects/:crn/',getMateria);
 
 export default router;

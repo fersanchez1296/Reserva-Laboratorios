@@ -56,10 +56,12 @@ export const createSubject = async (req, res) => {
   }
 };
 
-export const getSubject = async (req, res) => {
+export const getMateria = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `select crn, clave, nombre from materia where materia.crn = (?)`,
+      `SELECT *
+        FROM materia
+        WHERE materia.crn = (?)`,
       [req.params.crn]
     );
     res.send(result);
