@@ -17,11 +17,32 @@ export const getLabs = async (req, res) => {
 
 export const getAdminUser = async (req, res) => {
   try {
-    const [result] = await pool.query(`
+    const [result] = await pool.query(
+      `
         SELECT rol.rol AS rol, concat_ws(" ", nombre,apellido_1,apellido_2) AS nombre,codigo,email,telefono 
         FROM usuario
         INNER JOIN rol ON usuario.rol_id = rol.id
-        WHERE codigo = (?);`,[req.params.codigo]);
+        WHERE codigo = (?);`,
+      [req.params.codigo]
+    );
+    res.send(result);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
+};
+
+export const createLab = async (req, res) => {
+  try {
+    const { edificio, nombre, capacidad, admin } = req.body;
+    const [result] = await pool.query(
+      `
+      INSERT INTO 
+      laboratorio
+      (edificio,nombre,capacidad,usuario_codigo)
+      VALUES
+      (?,?,?,?)`,
+      [edificio, nombre, capacidad, admin]
+    );
     res.send(result);
   } catch (error) {
     res.send([error.code, error.errno]);
