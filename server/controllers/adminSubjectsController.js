@@ -60,9 +60,8 @@ export const getMateria = async (req, res) => {
   try {
     const [result] = await pool.query(
       `SELECT *
-        FROM materia
+        FROM grupo
         `,
-      
     );
     res.send(result);
   } catch (error) {
