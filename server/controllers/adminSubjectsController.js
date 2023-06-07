@@ -58,7 +58,7 @@ export const createSubject = async (req, res) => {
   }
 };
 
-export const getSUbject = async(req,res) =>{
+export const getSubject = async(req,res) =>{
   try {
       const [result] = await pool.query(`SELECT * FROM
       materia
