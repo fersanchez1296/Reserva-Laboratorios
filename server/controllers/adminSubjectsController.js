@@ -32,9 +32,7 @@ export const getCarrera = async (req, res) => {
 
 export const getCarreras = async (req, res) => {
   try {
-    const [result] = await pool.query(
-      `SELECT * FROM carrera`
-    );
+    const [result] = await pool.query(`SELECT * FROM carrera`);
     res.send(result);
   } catch (error) {
     res.send([error.code, error.errno]);
@@ -43,29 +41,29 @@ export const getCarreras = async (req, res) => {
 
 export const createSubject = async (req, res) => {
   try {
-    const {crn,clave,nombre,grupo} = req.body;
+    const { crn, clave, nombre, grupo } = req.body;
     const [result] = await pool.query(
       `INSERT INTO 
       materia
       (crn,clave,nombre,grupo_id_grupo)
       VALUES
       (?,?,?,?)`,
-      [crn,clave,nombre,grupo]
-      );
+      [crn, clave, nombre, grupo]
+    );
     res.send(result);
   } catch (error) {
     res.send([error.code, error.errno]);
   }
 };
 
-export const getSubject = async(req,res) =>{
+export const getSubject = async (req, res) => {
   try {
-      const [result] = await pool.query(`SELECT * FROM
-      materia
-      WHERE 
-      crn = (?)`,[req.params.crn]);
-      res.send(result)
+    const [result] = await pool.query(
+      `select crn, clave, nombre from materia where crn = (?,)`,
+      [req.params.crn]
+    );
+    res.send(result);
   } catch (error) {
-      res.send([error.code,error.errno])
+    res.send([error.code, error.errno]);
   }
-}
+};
