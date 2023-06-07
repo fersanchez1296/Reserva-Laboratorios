@@ -19,9 +19,8 @@ export const getSubjects = async (req, res) => {
 export const getCarrera = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `SELECT carrera.nombre as carrera, grupo.nombre as grupo
-        FROM carrera
-        INNER JOIN grupo ON carrera.clave = grupo.carrera_clave
+      `SELECT id_grupo, grupo.nombre as grupo
+        FROM grupo
         WHERE grupo.carrera_clave = (?)`,
       [req.params.carrera]
     );
