@@ -40,8 +40,6 @@ export const getTeacher = async(req,res) =>{
     } catch (error) {
         res.send([error.code,error.errno])
     }
-    
-
 }
 /*Actualizamos la información de un maestro de la db*/
 export const updateTeacher = async(req,res) =>{
