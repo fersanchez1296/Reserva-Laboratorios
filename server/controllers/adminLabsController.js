@@ -4,7 +4,7 @@ import { pool } from "../db.js";
 export const getLabs = async (req, res) => {
   try {
     const [result] = await pool.query(`
-        SELECT laboratorio.nombre,laboratorio.edificio,laboratorio.capacidad, CONCAT_WS(" ", usuario.nombre,usuario.apellido_1,
+        SELECT laboratorio.id, laboratorio.nombre,laboratorio.edificio,laboratorio.capacidad, CONCAT_WS(" ", usuario.nombre,usuario.apellido_1,
         usuario.apellido_2) as responsable
         FROM laboratorio
         INNER JOIN usuario
@@ -42,6 +42,21 @@ export const createLab = async (req, res) => {
       VALUES
       (?,?,?,?)`,
       [edificio, nombre, capacidad, admin]
+    );
+    res.send(result);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
+};
+
+export const getLab = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      `
+        SELECT * 
+        FROM laboratorio
+        WHERE id = (?)`,
+      [req.params.id]
     );
     res.send(result);
   } catch (error) {
