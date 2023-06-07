@@ -61,8 +61,8 @@ export const getMateria = async (req, res) => {
     const [result] = await pool.query(
       `SELECT *
         FROM materia
-        WHERE materia.crn = (?)`,
-      [req.params.crn]
+        `,
+      
     );
     res.send(result);
   } catch (error) {
