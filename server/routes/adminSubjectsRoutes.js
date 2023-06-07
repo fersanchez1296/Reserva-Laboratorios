@@ -7,6 +7,6 @@ router.get('/adminSubjects',getSubjects);
 
 router.get('/adminSubjects/:carrera',getCarrera);
 
-router.get('/adminSubjects/carreras',getCarreras);
+router.get('/adminSubjects-carreras/',getCarreras);
 
 export default router;

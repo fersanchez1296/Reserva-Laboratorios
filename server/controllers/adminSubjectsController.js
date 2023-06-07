@@ -34,7 +34,7 @@ export const getCarrera = async (req, res) => {
 export const getCarreras = async (req, res) => {
   try {
     const [result] = await pool.query(
-      `SELECT * from carrera`
+      `SELECT nombre FROM carrera`
     );
     res.send(result);
   } catch (error) {
