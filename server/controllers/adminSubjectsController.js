@@ -30,3 +30,14 @@ export const getCarrera = async (req, res) => {
     res.send([error.code, error.errno]);
   }
 };
+
+export const getCarreras = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      `SELECT * from carrera`,
+    );
+    res.send(result);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
+};
