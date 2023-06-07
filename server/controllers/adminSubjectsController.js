@@ -40,3 +40,19 @@ export const getCarreras = async (req, res) => {
     res.send([error.code, error.errno]);
   }
 };
+
+export const createSubject = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      `INSERT INTO 
+      materia
+      (crn,clave,nombre,grupo_id_grupo)
+      VALUES
+      (?,?,?,?)`,
+      [crn,clave,nombre,grupo]
+      );
+    res.send(result);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
+};
