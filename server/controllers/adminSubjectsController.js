@@ -57,3 +57,18 @@ export const createSubject = async (req, res) => {
     res.send([error.code, error.errno]);
   }
 };
+
+export const getSubject = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      `SELECT crn,clave,nombre
+      FROM materia
+      WHERE crn = ?
+      (?)`,
+      [req.params.crn]
+      );
+    res.send(result);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
+};
