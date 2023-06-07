@@ -43,6 +43,7 @@ export const getCarreras = async (req, res) => {
 
 export const createSubject = async (req, res) => {
   try {
+    const {crn,clave,nombre,grupo} = req.body;
     const [result] = await pool.query(
       `INSERT INTO 
       materia
