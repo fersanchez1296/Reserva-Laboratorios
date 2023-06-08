@@ -64,7 +64,7 @@ export const getSubject = async(req,res) =>{
       crn = (?)`,[req.params.crn]);
       res.send("hola")
   } catch (error) {
-      res.send([error.code,error.errno])
+      res.send(["adios"])
   }
 }
 
