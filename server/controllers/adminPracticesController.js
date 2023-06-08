@@ -37,6 +37,7 @@ export const getPractice = async (req, res) => {
         WHERE id = (?)`,
       [req.params.id]
     );
+    res.send(result)
     res.send(result.data);
   } catch (error) {
     res.send(error);
