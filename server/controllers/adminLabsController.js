@@ -63,3 +63,16 @@ export const getLab = async (req, res) => {
     res.send([error.code, error.errno]);
   }
 };
+
+export const updateLab = async(req,res) =>{
+    try {
+        const [result] = await pool.query(`UPDATE laboratorio 
+        SET ?
+        WHERE
+        codigo = ?`,[req.body,req.params.codigo]);
+        res.send(result.status)
+    } catch (error) {
+        res.send([error.code,error.errno])
+    }
+    
+};
