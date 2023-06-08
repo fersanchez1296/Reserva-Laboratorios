@@ -62,7 +62,7 @@ export const getSubject = async(req,res) =>{
       materia 
       WHERE 
       crn = (?)`,[req.params.crn]);
-      res.send(result)
+      res.send("hola")
   } catch (error) {
       res.send([error.code,error.errno])
   }
