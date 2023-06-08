@@ -64,33 +64,36 @@ export const getLab = async (req, res) => {
   }
 };
 
-export const updateLab = async(req,res) =>{
-    try {
-        const { nombre, edificio, capacidad, admin } = req.body;
-        const [result] = await pool.query(`UPDATE laboratorio 
+export const updateLab = async (req, res) => {
+  try {
+    const { nombre, edificio, capacidad, admin } = req.body;
+    const [result] = await pool.query(
+      `UPDATE laboratorio 
         SET nombre = ?,
         edificio = ?,
         capacidad = ?,
         usuario_codigo = ?
         WHERE
-        id = ?`,[nombre, edificio, capacidad, admin,req.params.id]);
-        res.send(result.status)
-    } catch (error) {
-        res.send([error.code,error.errno])
-    }
+        id = ?`,
+      [nombre, edificio, capacidad, admin, req.params.id]
+    );
+    res.send(result.status);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
 };
 
-export const deleteLab = async(req,res) =>{
-    try {
-        const [result] = await pool.query(`DELETE FROM
+export const deleteLab = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      `DELETE FROM
         laboratorio
         WHERE
-        id = ?`,[req.params.id]);
-        res.send(result)
-        res.send(result.status)
-    } catch (error) {
-        res.send(error)
-        res.send([error.code,error.errno])
-    }
-    
+        id = ?`,
+      [req.params.id]
+    );
+    res.send(result.status);
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
 };
