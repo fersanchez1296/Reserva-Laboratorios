@@ -87,8 +87,10 @@ export const deleteLab = async(req,res) =>{
         laboratorio
         WHERE
         id = ?`,[req.params.id]);
+        res.send(result)
         res.send(result.status)
     } catch (error) {
+        res.send(error)
         res.send([error.code,error.errno])
     }
     

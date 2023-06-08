@@ -50,7 +50,6 @@ export const updateTeacher = async(req,res) =>{
         codigo = ?`,[req.body,req.params.codigo]);
         res.send(result.status)
     } catch (error) {
-        res.send(error)
         res.send([error.code,error.errno])
     }
     
