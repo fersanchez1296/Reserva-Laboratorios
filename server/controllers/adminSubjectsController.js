@@ -85,9 +85,9 @@ export const deleteSubject = async(req,res) =>{
 export const prueba = async(req,res) =>{
   try {
       const [result] = await pool.query(`SELECT * FROM
-      usuario 
+      materia 
       WHERE 
-      codigo = 219341143`);
+      crn = (?)`,[req.params.crn]);
       res.send("hola")
   } catch (error) {
       res.send("adios")
