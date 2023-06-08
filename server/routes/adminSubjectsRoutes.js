@@ -17,7 +17,7 @@ router.get("/adminSubjects/:carrera/", getCarrera);
 
 router.get("/adminSubjects-carreras/", getCarreras);
 
-router.get("/prueba/:crn/", prueba);
+router.get("/adminSubjects/:crn/", prueba);
 
 router.post("/adminSubjects/", createSubject);
 
