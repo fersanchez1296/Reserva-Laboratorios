@@ -6,7 +6,8 @@ import {
   createSubject,
   getSubject,
   deleteSubject,
-  prueba
+  prueba,
+  updateSubject
 } from "../controllers/adminSubjectsController.js";
 
 const router = Router();
@@ -18,6 +19,8 @@ router.get("/adminSubjects/:carrera/", getCarrera);
 router.get("/adminSubjects-carreras/", getCarreras);
 
 router.get("/subject/:crn/",prueba);
+
+router.put("/subject/:crn/",updateSubject);
 
 router.post("/adminSubjects/", createSubject);
 

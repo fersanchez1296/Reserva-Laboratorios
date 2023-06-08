@@ -93,3 +93,16 @@ export const prueba = async(req,res) =>{
       res.send("adios")
   }
 }
+
+export const updateSubject = async(req,res) =>{
+  try {
+      const [result] = await pool.query(`UPDATE materia 
+      SET ?
+      WHERE
+      crn = ?`,[req.body,req.params.crn]);
+      res.send(result.status)
+  } catch (error) {
+      res.send([error.code,error.errno])
+  }
+  
+}
