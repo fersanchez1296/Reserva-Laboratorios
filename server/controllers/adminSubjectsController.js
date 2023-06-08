@@ -102,7 +102,7 @@ export const updateSubject = async(req,res) =>{
       crn = ?`,[req.body,req.params.crn]);
       res.send(result.status)
   } catch (error) {
-      res.send([error.code,error.errno])
+      res.send([error.code,error.errno,error])
   }
   
 }
