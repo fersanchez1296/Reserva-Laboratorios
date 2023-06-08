@@ -4,7 +4,7 @@ import {
   getCarrera,
   getCarreras,
   createSubject,
-  getMateria,
+  getSubject,
   deleteSubject,
 } from "../controllers/adminSubjectsController.js";
 
@@ -16,7 +16,7 @@ router.get("/adminSubjects/:carrera/", getCarrera);
 
 router.get("/adminSubjects-carreras/", getCarreras);
 
-router.get("/adminSubjects/:crn/", getMateria);
+router.get("/adminSubjects/:crn/", getSubject);
 
 router.post("/adminSubjects/", createSubject);
 
