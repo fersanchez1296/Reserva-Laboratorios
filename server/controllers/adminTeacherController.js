@@ -48,8 +48,9 @@ export const updateTeacher = async(req,res) =>{
         SET ?
         WHERE
         codigo = ?`,[req.body,req.params.codigo]);
-        res.send(result)
+        res.send(result.status)
     } catch (error) {
+        res.send(error)
         res.send([error.code,error.errno])
     }
     
