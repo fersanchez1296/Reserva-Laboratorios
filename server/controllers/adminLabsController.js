@@ -68,7 +68,10 @@ export const updateLab = async(req,res) =>{
     try {
         const { nombre, edificio, capacidad, admin } = req.body;
         const [result] = await pool.query(`UPDATE laboratorio 
-        SET ?,?,?,?
+        SET nombre = ?,
+        edificio = ?,
+        capacidad = ?
+        usuario_codigo = ?
         WHERE
         id = ?`,[nombre, edificio, capacidad, admin,req.params.codigo]);
         res.send(result.status)
