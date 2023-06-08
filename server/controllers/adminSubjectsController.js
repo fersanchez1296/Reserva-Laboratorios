@@ -96,10 +96,15 @@ export const prueba = async(req,res) =>{
 
 export const updateSubject = async(req,res) =>{
   try {
+      const {crn,clave,nombre,grupo} = req.body;
       const [result] = await pool.query(`UPDATE materia 
-      SET ?
+      SET 
+      crn = ?
+      clave = ?
+      nombre = ?
+      grupo_id_grupo = ?
       WHERE
-      crn = ?`,[req.body,req.params.crn]);
+      crn = ?`,[crn,clave,nombre,grupo,req.params.crn]);
       res.send(result.status)
   } catch (error) {
       res.send([error.code,error.errno,error])
