@@ -69,7 +69,20 @@ export const updateLab = async(req,res) =>{
         const [result] = await pool.query(`UPDATE laboratorio 
         SET ?
         WHERE
-        codigo = ?`,[req.body,req.params.codigo]);
+        id = ?`,[req.body,req.params.codigo]);
+        res.send(result.status)
+    } catch (error) {
+        res.send([error.code,error.errno])
+    }
+    
+};
+
+export const deleteLab = async(req,res) =>{
+    try {
+        const [result] = await pool.query(`DELETE FROM
+        laboratorio
+        WHERE
+        id = ?`,[req.params.id]);
         res.send(result.status)
     } catch (error) {
         res.send([error.code,error.errno])
