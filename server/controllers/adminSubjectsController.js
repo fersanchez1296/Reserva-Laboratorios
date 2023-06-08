@@ -62,9 +62,9 @@ export const getSubject = async(req,res) =>{
       materia 
       WHERE 
       crn = (?)`,[req.params.crn]);
-      res.send("hola")
+      res.send(result)
   } catch (error) {
-      res.send(["adios"])
+      res.send([error.code,error.errno])
   }
 }
 
@@ -80,6 +80,16 @@ export const deleteSubject = async(req,res) =>{
   catch(error){
       res.send([error.code,error.errno])
   }
-  
+}
 
+export const prueba = async(req,res) =>{
+  try {
+      const [result] = await pool.query(`SELECT * FROM
+      usuario 
+      WHERE 
+      codigo = 219341143`);
+      res.send("hola")
+  } catch (error) {
+      res.send("adios")
+  }
 }
