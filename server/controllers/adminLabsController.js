@@ -70,7 +70,7 @@ export const updateLab = async(req,res) =>{
         const [result] = await pool.query(`UPDATE laboratorio 
         SET nombre = ?,
         edificio = ?,
-        capacidad = ?
+        capacidad = ?,
         usuario_codigo = ?
         WHERE
         id = ?`,[nombre, edificio, capacidad, admin,req.params.id]);
@@ -78,7 +78,6 @@ export const updateLab = async(req,res) =>{
     } catch (error) {
         res.send([error.code,error.errno,error,req.body])
     }
-    
 };
 
 export const deleteLab = async(req,res) =>{
