@@ -99,9 +99,9 @@ export const updateSubject = async(req,res) =>{
       const {crn,clave,nombre,grupo} = req.body;
       const [result] = await pool.query(`UPDATE materia 
       SET 
-      crn = ?
-      clave = ?
-      nombre = ?
+      crn = ?,
+      clave = ?,
+      nombre = ?,
       grupo_id_grupo = ?
       WHERE
       crn = ?`,[crn,clave,nombre,grupo,req.params.crn]);
