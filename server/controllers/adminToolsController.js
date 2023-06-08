@@ -66,7 +66,7 @@ export const deleteTool = async(req,res) =>{
         const [result] = await pool.query(`DELETE FROM
         equipo
         WHERE
-        id = ?`,[req.params.codigo]);
+        id = ?`,[req.params.id]);
         res.send(result.data)
     }
     catch(error){

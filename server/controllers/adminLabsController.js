@@ -74,9 +74,9 @@ export const updateLab = async(req,res) =>{
         usuario_codigo = ?
         WHERE
         id = ?`,[nombre, edificio, capacidad, admin,req.params.id]);
-        res.send([result.status,result,req.body])
+        res.send(result.status)
     } catch (error) {
-        res.send([error.code,error.errno,error,req.body])
+        res.send([error.code,error.errno])
     }
 };
 
