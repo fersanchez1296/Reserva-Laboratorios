@@ -73,7 +73,7 @@ export const updateLab = async(req,res) =>{
         capacidad = ?
         usuario_codigo = ?
         WHERE
-        id = ?`,[nombre, edificio, capacidad, admin,req.params.codigo]);
+        id = ?`,[nombre, edificio, capacidad, admin,req.params.id]);
         res.send(result.status)
     } catch (error) {
         res.send([error.code,error.errno])
