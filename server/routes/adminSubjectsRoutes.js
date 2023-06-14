@@ -4,7 +4,6 @@ import {
   getCarrera,
   getCarreras,
   createSubject,
-  getSubject,
   deleteSubject,
   prueba,
   updateSubject
