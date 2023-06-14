@@ -7,8 +7,7 @@ export const login = async(req,res) => {
         from usuario
         INNER JOIN rol on usuario.rol_id = rol.id
         WHERE usuario.codigo = ?;
-        `,[req.codigo])
-
+        `,[req.params.codigo])
         res.send(result);
     } catch (error) {
         res.send([error.code, error.errno]);
