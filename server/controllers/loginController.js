@@ -1,7 +1,7 @@
 import { pool } from "../db.js";
 
 export const login = async (req, res) => {
-    const {user , password} = req.body.data;
+    const {user , password} = req.params;
   try {
     const [result] = await pool.query(
       `
