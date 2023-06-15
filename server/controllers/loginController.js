@@ -12,7 +12,7 @@ export const login = async (req, res) => {
       `,
       [user, password]
     );
-    res.send(result);
+    res.send(result[0]);
   } catch (error) {
     res.send([error.code, error.errno]);
   }
