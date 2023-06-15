@@ -14,7 +14,7 @@ app.use(express.json())
 {/**
 permitimos la comunicación entre el backend y frontend.
 */}
-a// Middleware para configurar las cabeceras CORS
+// Middleware para configurar las cabeceras CORS
 app.use(function(req, res, next) {
         // Permitir solicitudes desde cualquier origen
         res.setHeader('Access-Control-Allow-Origin', '*');
