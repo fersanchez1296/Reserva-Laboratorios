@@ -8,7 +8,7 @@ import { pool } from "../db.js";
             usuario 
             (codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono,password)
             VALUES
-            (?,?,?,?,?,?,?)`,
+            (?,?,?,?,?,?,?,?)`,
             [codigo,email,rol,nombre,apellido_1,apellido_2,telefono,password]);
             res.send(result.data);
         } catch (error) {
