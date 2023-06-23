@@ -3,13 +3,13 @@ import { pool } from "../db.js";
     /*Creamos un maestro en la db*/
     export const createTeacher = async (req,res) =>{
         try {
-            const {codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono} = req.body;
+            const {codigo,email,rol,nombre,apellido_1,apellido_2,telefono,password} = req.body;
             const [result] = await pool.query(`INSERT INTO 
             usuario 
-            (codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono)
+            (codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono,password)
             VALUES
             (?,?,?,?,?,?,?)`,
-            [codigo,email,rol_id,nombre,apellido_1,apellido_2,telefono]);
+            [codigo,email,rol,nombre,apellido_1,apellido_2,telefono,password]);
             res.send(result.data);
         } catch (error) {
             res.send(error)
