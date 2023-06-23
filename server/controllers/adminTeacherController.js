@@ -36,7 +36,7 @@ export const getTeacher = async(req,res) =>{
         usuario 
         WHERE 
         codigo = (?)`,[req.params.codigo]);
-        res.send(result)
+        res.send(result.data)
     } catch (error) {
         res.send([error.code,error.errno])
     }
