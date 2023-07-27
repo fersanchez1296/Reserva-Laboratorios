@@ -30,12 +30,13 @@ export const getTeachers = async(req,res) =>{
     
 }
 /*Obtenemos la información de un maestro de la db*/
-export const getTeacher = async(req,res) =>{
+export const getUser = async(req,res) =>{
+    const user = req.query.search;
     try {
         const [result] = await pool.query(`SELECT * FROM
         usuario 
         WHERE 
-        codigo = (?)`,[req.params.codigo]);
+        codigo = (?)`,user);
         res.send(result)
     } catch (error) {
         res.send([error.code,error.errno])

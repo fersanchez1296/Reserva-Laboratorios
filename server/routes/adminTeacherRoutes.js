@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {createTeacher,
         getTeachers,
-        getTeacher,
+        getUser,
         updateTeacher,
         deleteTeacher}
         from '../controllers/adminTeacherController.js';
@@ -10,7 +10,7 @@ const router = Router();
 /*Traemos toda la información referente a los maestros*/
 router.get('/adminTeacher',getTeachers);
 /*Obtenemos la información de un maestro en particular con base en su id*/
-router.get('/adminTeacher/:codigo',getTeacher);
+router.get('/adminUser-update',getUser);
 /*Agregegamos un nuevo maestro a la db*/
 router.post('/adminTeacher',createTeacher);
 /*Editamos la información de un maestro en partiular con base en su id*/
