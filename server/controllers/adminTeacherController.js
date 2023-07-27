@@ -36,7 +36,7 @@ export const getUser = async(req,res) =>{
         const [result] = await pool.query(`SELECT * FROM
         usuario 
         WHERE 
-        codigo = (?)`,user);
+        codigo = (?)`,[user]);
         res.send(result)
     } catch (error) {
         res.send([error.code,error.errno])
