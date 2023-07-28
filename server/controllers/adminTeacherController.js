@@ -43,7 +43,7 @@ export const getUser = async(req,res) =>{
     }
 }
 /*Actualizamos la información de un maestro de la db*/
-export const updateTeacher = async(req,res) =>{
+export const updateUser = async(req,res) =>{
     try {
         const [result] = await pool.query(`UPDATE usuario 
         SET ?

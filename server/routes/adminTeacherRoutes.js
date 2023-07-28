@@ -2,7 +2,7 @@ import { Router } from "express";
 import {createTeacher,
         getTeachers,
         getUser,
-        updateTeacher,
+        updateUser,
         deleteTeacher}
         from '../controllers/adminTeacherController.js';
 
@@ -14,7 +14,7 @@ router.get('/adminUser-update',getUser);
 /*Agregegamos un nuevo maestro a la db*/
 router.post('/adminTeacher',createTeacher);
 /*Editamos la información de un maestro en partiular con base en su id*/
-router.put('/adminTeacher/:codigo',updateTeacher);
+router.put('/adminUser-update/:codigo',updateUser);
 /*Elminamos un maesteo de la db con base en su id*/
 router.delete('/adminTeacher/:codigo',deleteTeacher);
 
