@@ -3,7 +3,7 @@ import {createTeacher,
         getTeachers,
         getUser,
         updateUser,
-        deleteTeacher}
+        deleteUser}
         from '../controllers/adminTeacherController.js';
 
 const router = Router();
@@ -16,6 +16,6 @@ router.post('/adminTeacher',createTeacher);
 /*Editamos la información de un maestro en partiular con base en su id*/
 router.put('/adminUser-update/:codigo',updateUser);
 /*Elminamos un maesteo de la db con base en su id*/
-router.delete('/adminTeacher/:codigo',deleteTeacher);
+router.delete('/adminUser-delete/:codigo',deleteUser);
 
 export default router;

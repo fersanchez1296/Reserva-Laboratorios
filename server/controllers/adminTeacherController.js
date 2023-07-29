@@ -56,7 +56,7 @@ export const updateUser = async(req,res) =>{
     
 }
 /*Eliminamos un maestro de la db*/
-export const deleteTeacher = async(req,res) =>{
+export const deleteUser = async(req,res) =>{
     try{
         const [result] = await pool.query(`DELETE FROM
         usuario
