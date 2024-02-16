@@ -30,15 +30,15 @@ export const createPractice = async (req, res) => {
 };
 
 export const getPractice = async (req, res) => {
+  const search = req.query.search
   try {
     const [result] = await pool.query(
       `SELECT * 
         FROM practicas
         WHERE id = (?)`,
-      [req.params.id]
+      [search]
     );
     res.send(result)
-    res.send(result.data);
   } catch (error) {
     res.send(error);
   }
@@ -46,18 +46,40 @@ export const getPractice = async (req, res) => {
 
 export const updatePractice = async (req, res) => {
   try {
-    const { nombre, descripcion } = req.body;
+    const columnsToUpdate = Object.keys(req.body)
+      .map((key) => `${key} = ?`)
+      .join(", ");
     const [result] = await pool.query(
       `UPDATE practicas
-        SET
-        nombre = ?,
-        descripcion = ?
+        SET ${columnsToUpdate}
         WHERE id = (?)`,
-      [nombre, descripcion, req.params.id]
+        [...Object.values(req.body), req.params.id]
     );
-    res.send(result.data);
+    if (result.affectedRows > 0) {
+      // Send a success response with additional information
+      res.send({
+        success: true,
+        message: "Update successful",
+        updatedRows: result.affectedRows,
+      });
+    } else {
+      res.send({
+        success: true,
+        message: "No rows updated",
+      });
+    }
   } catch (error) {
-    res.send(error);
+    // Send an error response with details
+    console.log(error)
+    res.status(500).send({
+      success: false,
+      message: "Error updating DataBase",
+      error: {
+        code: error.code,
+        errno: error.errno,
+        message: error.message,
+      },
+    });
   }
 };
 

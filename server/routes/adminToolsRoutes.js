@@ -5,11 +5,11 @@ const router = Router();
 /*Traemos toda la información referente al equipo*/
 router.get('/adminTools',getTools);
 /*Agregegamos un nuevo equipo a la db*/
-router.post('/adminTools',createTool);
+router.post('/adminTools-create',createTool);
 /*Obtenemos la información de un equipo en especifico de la db*/
-router.get('/adminTools/:id',getTool);
+router.get('/adminTools-getOne',getTool);
 /*Editamos la información de un maestro en partiular con base en su id*/
-router.put('/adminTools/:codigo',updateTool);
+router.put('/adminTools-update/:id',updateTool);
 /*Obtenemos la información de un equipo en especifico de la db*/
-router.delete('/adminTools/:id',deleteTool);
+router.delete('/adminTools-delete/:id',deleteTool);
 export default router;

@@ -16,36 +16,62 @@ export const getLabs = async (req, res) => {
 };
 
 export const getAdminUser = async (req, res) => {
+  const codigo = req.body.codigo
+  console.log(req.body)
   try {
-    const [result] = await pool.query(
+    const [[result]] = await pool.query(
       `
-        SELECT rol.rol AS rol, concat_ws(" ", nombre,apellido_1,apellido_2) AS nombre,codigo,email,telefono 
-        FROM usuario
-        INNER JOIN rol ON usuario.rol_id = rol.id
-        WHERE codigo = (?);`,
-      [req.params.codigo]
+      SELECT concat_ws(" ", usuario.nombre, usuario.apellido_1,usuario.apellido_2) as responsable
+      FROM usuario
+      WHERE usuario.codigo = ?;`,
+      [codigo]
     );
     res.send(result);
   } catch (error) {
-    res.send([error.code, error.errno]);
+    res.send(error);
   }
 };
 
 export const createLab = async (req, res) => {
   try {
-    const { edificio, nombre, capacidad, admin } = req.body;
+    delete req.body.id;
+    delete req.body.responsable;
+    delete req.body.codigo_responsable;
+    const columnsKeys = Object.keys(req.body)
     const [result] = await pool.query(
       `
       INSERT INTO 
       laboratorio
-      (edificio,nombre,capacidad,usuario_codigo)
+      (${columnsKeys})
       VALUES
-      (?,?,?,?)`,
-      [edificio, nombre, capacidad, admin]
+      (?,?,?,?)`,[...Object.values(req.body)]
     );
-    res.send(result);
+    if (result.affectedRows > 0) {
+      // Send a success response with additional information
+      res.send({
+        success: true,
+        message: "Created successfully",
+        updatedRows: result.affectedRows,
+      });
+    } else {
+      // Send a response indicating that no rows were updated
+      res.send({
+        success: false,
+        message: "No rows updated",
+      });
+    }
   } catch (error) {
-    res.send([error.code, error.errno]);
+    console.log(error);
+    // Send an error response with details
+    res.status(500).send({
+      success: false,
+      message: "Error Creating Lab",
+      error: {
+        code: error.code,
+        errno: error.errno,
+        message: error.message,
+      },
+    });
   }
 };
 
@@ -53,33 +79,59 @@ export const getLab = async (req, res) => {
   try {
     const [result] = await pool.query(
       `
-        SELECT * 
-        FROM laboratorio
-        WHERE id = (?)`,
-      [req.params.id]
+      SELECT laboratorio.id,laboratorio.nombre, laboratorio.edificio, laboratorio.capacidad, 
+      concat_ws(" ", usuario.nombre, usuario.apellido_1,usuario.apellido_2) as responsable
+      FROM reservas.laboratorio
+      inner join usuario on laboratorio.usuario_codigo = usuario.codigo
+      WHERE laboratorio.id = ?;`,
+      [req.query.search]
     );
+    console.log(result);
     res.send(result);
   } catch (error) {
+    console.log(error);
     res.send([error.code, error.errno]);
   }
 };
 
 export const updateLab = async (req, res) => {
   try {
-    const { nombre, edificio, capacidad, admin } = req.body;
+    delete req.body.responsable;
+    const columnsToUpdate = Object.keys(req.body)
+      .map((key) => `${key} = ?`)
+      .join(", ");
     const [result] = await pool.query(
       `UPDATE laboratorio 
-        SET nombre = ?,
-        edificio = ?,
-        capacidad = ?,
-        usuario_codigo = ?
+        SET ${columnsToUpdate}
         WHERE
         id = ?`,
-      [nombre, edificio, capacidad, admin, req.params.id]
+      [...Object.values(req.body), req.params.id]
     );
-    res.send(result.status);
+    if (result.affectedRows > 0) {
+      // Send a success response with additional information
+      res.send({
+        success: true,
+        message: "Update successful",
+        updatedRows: result.affectedRows,
+      });
+    } else {
+      // Send a response indicating that no rows were updated
+      res.send({
+        success: false,
+        message: "No rows updated",
+      });
+    }
   } catch (error) {
-    res.send([error.code, error.errno]);
+    // Send an error response with details
+    res.status(500).send({
+      success: false,
+      message: "Error updating Lab",
+      error: {
+        code: error.code,
+        errno: error.errno,
+        message: error.message,
+      },
+    });
   }
 };
 

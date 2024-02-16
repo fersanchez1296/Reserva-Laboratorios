@@ -11,12 +11,12 @@ const router = Router();
 /*Traemos toda la información referente a las prácticas*/
 router.get("/adminPractices", getPractices);
 
-router.get("/adminPractices/:id", getPractice);
+router.get("/adminPractices-getOne", getPractice);
 
-router.put("/adminPractices/:id", updatePractice);
+router.put('/adminPractices-update/:id/',updatePractice);
 
-router.post("/adminPractices", createPractice);
+router.post("/adminPractices-create", createPractice);
 
-router.delete("/adminPractices/:id", deletePractice);
+router.delete("/adminPractices-delete/:id", deletePractice);
 
 export default router;

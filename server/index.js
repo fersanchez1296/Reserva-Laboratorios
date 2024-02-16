@@ -2,15 +2,16 @@ import express from 'express';
 import {PORT} from './config.js';
 import cors from 'cors';
 import indexRoutes from './routes/index-routes.js'
-import adminTeacherRoutes from './routes/adminTeacherRoutes.js'
 import adminSubjectsRoutes from './routes/adminSubjectsRoutes.js'
 import adminUsersRoutes from './routes/adminUsersRoutes.js'
 import adminToolsRoutes from './routes/adminToolsRoutes.js'
 import adminLabsRoutes from './routes/adminLabsRoutes.js'
 import adminPracticesRoutes from './routes/adminPracticesRoutes.js'
 import login from './routes/loginRoute.js'
+import morgan from 'morgan';
 const app  = express();
 app.use(express.json())
+app.use(morgan("dev"));
 {/**
 permitimos la comunicación entre el backend y frontend.
 */}
@@ -32,7 +33,7 @@ app.use(function(req, res, next) {
 app.use(indexRoutes);
 {/*Rutas en las que el frontend realiza peticiones para la información
 relazionada con la administración de usuarios.*/}
-app.use(adminTeacherRoutes,adminSubjectsRoutes,adminUsersRoutes,
+app.use(adminSubjectsRoutes,adminUsersRoutes,
         adminToolsRoutes,adminLabsRoutes,adminPracticesRoutes,login);
 /*El servidor se ejecuta en el puerto PORT(3000) */
 app.listen(PORT); 

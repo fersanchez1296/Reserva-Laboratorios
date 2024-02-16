@@ -4,10 +4,10 @@ import { pool } from "../db.js";
 export const getSubjects = async (req, res) => {
   try {
     const [result] = await pool.query(`
-        SELECT crn,materia.nombre,grupo.nombre as semestre,carrera.clave as carrera
+        SELECT materia.crn,materia.clave,materia.nombre,grupo.nombre as semestre,carrera.nombre as carrera
         FROM materia
         INNER JOIN grupo 
-        ON materia.grupo_id_grupo = grupo.id_grupo
+        ON materia.grupo_idgrupo = grupo.idgrupo
         INNER JOIN carrera 
         ON grupo.carrera_clave = carrera.clave;`);
     res.send(result);
@@ -50,64 +50,135 @@ export const createSubject = async (req, res) => {
       (?,?,?,?)`,
       [crn, clave, nombre, grupo]
     );
+
+      
+    
     res.send(result);
   } catch (error) {
     res.send([error.code, error.errno]);
   }
 };
 
-export const getSubject = async(req,res) =>{
+
+export const getSubject = async (req, res) => {
   try {
-    const [result] = await pool.query(`SELECT crn, clave,nombre FROM
-    materia 
-    WHERE 
-    crn = (?)`,[req.params.crn]);
-    res.send(result)
-} catch (error) {
-    res.send([error.code,error.errno])
-}
-}
+    const [result] = await pool.query(
+      `
+      SELECT 
+        materia.crn, materia.clave, materia.nombre, 
+        grupo.nombre as semestre, carrera.nombre as carrera
+      FROM 
+        reservas.materia
+      JOIN 
+        grupo ON materia.grupo_idgrupo = grupo.idgrupo
+      JOIN 
+        carrera ON grupo.carrera_clave = carrera.clave
+      WHERE materia.crn = ?`,
+      [req.body.crn]
+    );
 
+    const [gruposQuery] = await pool.query(`
+    SELECT
+        grupo.idgrupo, grupo.nombre as grupo
+      FROM 
+        reservas.grupo
+      WHERE
+        grupo.carrera_clave = ?
+    `,[req.body.carrera_clave]);
+    const grupos = gruposQuery.map(grupo => ({
+      "grupo": grupo.grupo,
+      "id": grupo.idgrupo
+  }));
 
-export const deleteSubject = async(req,res) =>{
-  try{
-      const [result] = await pool.query(`DELETE FROM
+    const [carrerasQuery] = await pool.query(`
+    SELECT 
+        carrera.nombre as carrera
+      FROM 
+        reservas.carrera
+    `);
+    const carreras = carrerasQuery.map(carrera => carrera.carrera);
+
+    res.send({result,carreras,grupos});
+  } catch (error) {
+    res.send([error.code, error.errno]);
+  }
+};
+
+export const deleteSubject = async (req, res) => {
+  try {
+    const [result] = await pool.query(
+      `DELETE FROM
       materia
       WHERE
-      crn = ?`,[req.params.crn]);
-      res.send(result.data)
-  }
-  catch(error){
-      res.send([error.code,error.errno])
-  }
-}
-
-export const prueba = async(req,res) =>{
-  try {
-      const [result] = await pool.query(`SELECT crn, clave,nombre FROM
-      materia 
-      WHERE 
-      crn = (?)`,[req.params.crn]);
-      res.send(result)
+      crn = ?`,
+      [req.params.crn]
+    );
+    res.send(result.data);
   } catch (error) {
-      res.send("adios")
+    res.send([error.code, error.errno]);
   }
-}
+};
 
-export const updateSubject = async(req,res) =>{
+export const prueba = async (req, res) => {
   try {
-      const {crn,clave,nombre,grupo} = req.body;
-      const [result] = await pool.query(`UPDATE materia 
-      SET 
-      crn = ?,
-      clave = ?,
-      nombre = ?,
-      grupo_id_grupo = ?
+    const [gruposQuery] = await pool.query(`
+    SELECT DISTINCT
+        grupo.idgrupo, grupo.nombre as grupo
+      FROM 
+        reservas.grupo
+    `);
+
+    const grupos = gruposQuery.map(grupo => ({
+      "grupo": grupo.grupo,
+      "id": grupo.idgrupo
+  }));
+    res.send({grupos});
+  } catch (error) {
+    console.log(error);
+    res.send("adios");
+  }
+};
+
+export const updateSubject = async (req, res) => {
+  console.log("antes eliminar", req.body);
+  try {
+    delete req.body.semestre;
+    delete req.body.carrera;
+    console.log("despues eliminar", req.body);
+    const columnsToUpdate = Object.keys(req.body)
+      .map((key) => `${key} = ?`)
+      .join(", ");
+    const [result] = await pool.query(
+      `UPDATE materia 
+      SET ${columnsToUpdate}
       WHERE
-      crn = ?`,[crn,clave,nombre,grupo,req.params.crn]);
-      res.send(result.status)
+      crn = ?`,
+      [...Object.values(req.body), req.params.id]
+    );
+    if (result.affectedRows > 0) {
+      // Send a success response with additional information
+      res.send({
+        success: true,
+        message: "Update successful",
+        updatedRows: result.affectedRows,
+      });
+    } else {
+      res.send({
+        success: true,
+        message: "No rows updated",
+      });
+    }
   } catch (error) {
-      res.send([error.code,error.errno,error])
+    // Send an error response with details
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error updating DataBase",
+      error: {
+        code: error.code,
+        errno: error.errno,
+        message: error.message,
+      },
+    });
   }
-  
-}
+};

@@ -1,28 +1,25 @@
 import { Router } from "express";
 import {
   getSubjects,
-  getCarrera,
-  getCarreras,
+  getSubject,
   createSubject,
   deleteSubject,
-  prueba,
-  updateSubject
+  updateSubject,
+  prueba
 } from "../controllers/adminSubjectsController.js";
 
 const router = Router();
 /*Traemos toda la información referente a los maestros*/
 router.get("/adminSubjects/", getSubjects);
 
-router.get("/adminSubjects/:carrera/", getCarrera);
+router.post("/adminSubjects-getOne", getSubject);
 
-router.get("/adminSubjects-carreras/", getCarreras);
+router.post("/adminSubjects-prueba", prueba);
 
-router.get("/subject/:crn/",prueba);
+router.put("/adminSubjects-update/:id",updateSubject);
 
-router.put("/subject/:crn/",updateSubject);
+router.post("/adminSubjects-create/", createSubject);
 
-router.post("/adminSubjects/", createSubject);
-
-router.delete("/adminSubjects/:crn/", deleteSubject);
+router.delete("/adminSubjects-delete/:crn/", deleteSubject);
 
 export default router;
